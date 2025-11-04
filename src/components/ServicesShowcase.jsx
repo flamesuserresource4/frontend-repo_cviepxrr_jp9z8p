@@ -53,7 +53,8 @@ export default function ServicesShowcase() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: i * 0.05 }}
-            className="group relative overflow-hidden rounded-2xl border border-[#bdc3c7] bg-white p-5 shadow-sm transition hover:shadow"
+            whileHover={{ y: -6 }}
+            className="group relative overflow-hidden rounded-2xl border border-[#bdc3c7] bg-white p-5 shadow-sm transition will-change-transform"
           >
             <div className="mb-4 flex items-center gap-3">
               <div className="grid h-10 w-10 place-items-center rounded-xl bg-[#ecf0f1] text-[#e74c3c] ring-1 ring-[#bdc3c7]">
@@ -68,18 +69,25 @@ export default function ServicesShowcase() {
                 ? 'Get precise insights and a clear plan tailored for you.'
                 : 'आपके लिए तैयार सटीक अंतर्दृष्टि और स्पष्ट योजना प्राप्त करें।'}
             </p>
-            <div className="pointer-events-none absolute -right-6 -top-6 h-24 w-24 rounded-full bg-[#e74c3c]/5 blur-2xl transition group-hover:bg-[#e74c3c]/10" />
+            <motion.div
+              aria-hidden
+              initial={{ opacity: 0.04 }}
+              whileHover={{ opacity: 0.12 }}
+              className="pointer-events-none absolute -right-6 -top-6 h-24 w-24 rounded-full bg-[#e74c3c] blur-2xl"
+            />
           </motion.div>
         ))}
       </div>
 
       <div className="mt-10 flex flex-wrap items-center gap-3">
-        <a
+        <motion.a
+          whileHover={{ scale: 1.03 }}
+          whileTap={{ scale: 0.97 }}
           href="#book"
-          className="cta-button rounded-full bg-[#e74c3c] px-5 py-2.5 text-sm font-semibold text-white shadow transition-colors hover:bg-[#c0392b] active:scale-95"
+          className="cta-button rounded-full bg-[#e74c3c] px-5 py-2.5 text-sm font-semibold text-white shadow transition-colors hover:bg-[#c0392b]"
         >
           {lang === 'en' ? 'Start for ₹21' : '₹21 में शुरू करें'}
-        </a>
+        </motion.a>
         <span className="text-xs text-[#34495e] opacity-70">
           {lang === 'en' ? 'Money-back guarantee if you feel no value.*' : 'यदि आपको लाभ न लगे तो धन-वापसी की गारंटी.*'}
         </span>
