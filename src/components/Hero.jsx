@@ -1,10 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 import Spline from '@splinetool/react-spline';
+import { useLanguage } from './LanguageContext';
+import AudioPlayer from './AudioPlayer';
 
 export default function Hero() {
   const containerRef = useRef(null);
   const overlayRef = useRef(null);
   const [mounted, setMounted] = useState(false);
+  const { lang } = useLanguage();
 
   // Parallax for overlay stars/gradients
   useEffect(() => {
@@ -22,6 +25,17 @@ export default function Hero() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const title =
+    lang === 'en'
+      ? 'Your Future Is In Your Hands!'
+      : 'आपका भविष्य आपके हाथों में!';
+  const subtitle =
+    lang === 'en'
+      ? 'Discover the hidden chapters of your destiny — career, love, and wealth — with a complete life analysis from Astrologer Ved Rishi.'
+      : 'ज्योतिषी वेद ऋषि से संपूर्ण जीवन विश्लेषण के साथ अपने भाग्य के छिपे हुए अध्यायों—अपने करियर, प्यार और धन—को जानें।';
+  const cta1 = lang === 'en' ? 'Apply Now' : 'Apply Now';
+  const cta2 = lang === 'en' ? 'Explore Benefits' : 'लाभ देखें';
+
   return (
     <section ref={containerRef} className="relative min-h-[92vh] w-full overflow-hidden bg-black text-white">
       <nav className="absolute left-0 right-0 top-0 z-20 mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
@@ -30,12 +44,8 @@ export default function Hero() {
           <span className="text-lg font-semibold tracking-wide text-indigo-100">Astrologer Ved Rishi</span>
         </div>
         <div className="flex items-center gap-4">
-          <a href="#offer" className="text-sm text-indigo-100 transition-colors duration-300 hover:text-amber-300">Offer</a>
-          <a href="#benefits" className="text-sm text-indigo-100 transition-colors duration-300 hover:text-amber-300">Benefits</a>
-          <select aria-label="Language" className="rounded-md bg-white/5 px-3 py-1.5 text-sm text-indigo-100 outline-none ring-1 ring-white/10 transition focus:ring-amber-300/40 hover:bg-white/10">
-            <option>English</option>
-            <option>हिन्दी</option>
-          </select>
+          <a href="#offer" className="text-sm text-indigo-100 transition-colors duration-300 hover:text-amber-300">{lang === 'en' ? 'Offer' : 'ऑफ़र'}</a>
+          <a href="#benefits" className="text-sm text-indigo-100 transition-colors duration-300 hover:text-amber-300">{lang === 'en' ? 'Benefits' : 'लाभ'}</a>
         </div>
       </nav>
 
@@ -52,19 +62,25 @@ export default function Hero() {
 
       {/* Content */}
       <div className="relative z-20 mx-auto flex min-h-[92vh] max-w-6xl flex-col items-center justify-center px-6 text-center">
-        <p className={`mb-3 text-xs uppercase tracking-[0.35em] text-amber-300/90 ${mounted ? 'fade-in-down' : 'opacity-0 translate-y-2'}`}>Divine Guidance, Modern Insight</p>
+        <p className={`mb-3 text-xs uppercase tracking-[0.35em] text-amber-300/90 ${mounted ? 'fade-in-down' : 'opacity-0 translate-y-2'}`}>{lang === 'en' ? 'Divine Guidance, Modern Insight' : 'दैवीय मार्गदर्शन, आधुनिक दृष्टि'}</p>
         <h1 className={`max-w-3xl bg-gradient-to-br from-indigo-200 via-amber-200 to-rose-200 bg-clip-text text-4xl font-extrabold leading-tight text-transparent sm:text-5xl md:text-6xl ${mounted ? 'fade-in-up' : 'opacity-0 translate-y-4'}`}>
-          Discover Your Celestial Path with Ved Rishi
+          {title}
         </h1>
         <p className={`mt-4 max-w-2xl text-base text-indigo-100/90 sm:text-lg ${mounted ? 'fade-in-up-delayed' : 'opacity-0 translate-y-4'}`}>
-          Personalized astrology readings that align your energy with opportunity. Subtle. Spiritual. Profoundly practical.
+          {subtitle}
         </p>
-        <div className={`mt-8 flex flex-wrap items-center justify-center gap-4 ${mounted ? 'fade-in-up-delayed-2' : 'opacity-0 translate-y-4'}`}>
+
+        {/* Audio player */}
+        <div className={`${mounted ? 'fade-in-up-delayed-2' : 'opacity-0 translate-y-4'} w-full`}>
+          <AudioPlayer src="https://cdn.pixabay.com/download/audio/2022/10/23/audio_1e2e61a8a1.mp3?filename=deep-ambient-124841.mp3" />
+        </div>
+
+        <div className={`mt-6 flex flex-wrap items-center justify-center gap-4 ${mounted ? 'fade-in-up-delayed-2' : 'opacity-0 translate-y-4'}`}>
           <a href="#offer" className="rounded-full bg-gradient-to-r from-indigo-500 via-violet-500 to-amber-400 px-6 py-3 text-sm font-semibold text-black shadow-lg shadow-indigo-900/40 transition-transform duration-300 hover:scale-[1.02] active:scale-[0.98]">
-            Book Your Reading
+            {cta1}
           </a>
           <a href="#benefits" className="rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-indigo-100 backdrop-blur transition-colors duration-300 hover:border-amber-300/60 hover:text-amber-200">
-            Explore Benefits
+            {cta2}
           </a>
         </div>
       </div>
