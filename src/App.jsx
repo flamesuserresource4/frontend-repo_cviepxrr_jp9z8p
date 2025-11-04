@@ -7,12 +7,12 @@ import FAQ from './components/FAQ';
 function App() {
   return (
     <LanguageProvider>
-      <div className="min-h-screen w-full bg-black text-white">
+      <div className="min-h-screen w-full bg-[#ecf0f1] text-[#34495e]">
         <Header />
         <main>
           <CelestialHero />
           <ServicesShowcase />
-          <section id="faq" className="mx-auto max-w-6xl px-4">
+          <section id="faq" className="mx-auto max-w-6xl px-4 py-16">
             <FAQ />
           </section>
         </main>
